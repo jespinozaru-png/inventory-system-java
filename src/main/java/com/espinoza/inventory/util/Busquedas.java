@@ -8,11 +8,12 @@ package com.espinoza.inventory.util;
  *
  * @author JEFERSON
  */
-public class AlgoritmosEjercicio {
-     /**
-     * Búsqueda lineal: recorre el array elemento por elemento
-     * hasta encontrar el target o llegar al final.
-     * Complejidad: O(n) — en el peor caso revisa todos los elementos.
+public class Busquedas {
+
+    /**
+     * Búsqueda lineal: recorre el array elemento por elemento hasta encontrar
+     * el target o llegar al final. Complejidad: O(n) — en el peor caso revisa
+     * todos los elementos.
      */
     public static int busquedaLineal(int[] array, int target) {
         for (int i = 0; i < array.length; i++) {
@@ -24,9 +25,9 @@ public class AlgoritmosEjercicio {
     }
 
     /**
-     * Búsqueda binaria: solo funciona si el array está ORDENADO.
-     * Divide el espacio de búsqueda a la mitad en cada iteración.
-     * Complejidad: O(log n) — con 1000 elementos, máximo ~10 comparaciones.
+     * Búsqueda binaria: solo funciona si el array está ORDENADO. Divide el
+     * espacio de búsqueda a la mitad en cada iteración. Complejidad: O(log n) —
+     * con 1000 elementos, máximo ~10 comparaciones.
      */
     public static int busquedaBinaria(int[] arrayOrdenado, int target) {
         int izquierda = 0;
