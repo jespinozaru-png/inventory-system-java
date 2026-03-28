@@ -6,7 +6,9 @@ package com.espinoza.inventory.service;
 
 import com.espinoza.inventory.exception.ProductoNoEncontradoException;
 import com.espinoza.inventory.model.Producto;
+import com.espinoza.inventory.repository.ProductoRepositoryJDBC;
 import com.espinoza.inventory.repository.ProductoRepositoryMemoria;
+import com.espinoza.inventory.repository.Repositorio;
 import java.util.List;
 
 /**
@@ -15,9 +17,9 @@ import java.util.List;
  */
 public class ProductoService {
 
-    private final ProductoRepositoryMemoria repositorio;
+    private final Repositorio<Producto, Integer> repositorio;
 
-    public ProductoService(ProductoRepositoryMemoria repositorio) {
+    public ProductoService(Repositorio<Producto, Integer> repositorio) {
         this.repositorio = repositorio;
     }
 
@@ -32,13 +34,30 @@ public class ProductoService {
     public Producto buscarProductoPorId(int id) {
         return repositorio.buscarPorId(id).orElseThrow(() -> new ProductoNoEncontradoException(id));
     }
-
+/*
+    
+    
     public List<Producto> buscarProductoPorNombre(String nombre) {
         if (nombre == null || nombre.trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre de búsqueda no puede estar vacío");
 
         }
         return repositorio.buscarPorNombre(nombre.trim());
+    }
+*/
+    public List<Producto> buscarProductoPorNombre(String nombre) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre de búsqueda no puede estar vacío");
+        }
+        
+        if (repositorio instanceof ProductoRepositoryJDBC jdbc) {
+            return jdbc.buscarPorNombre(nombre.trim());
+        }
+        
+        if (repositorio instanceof ProductoRepositoryMemoria memoria ) {
+            return memoria.buscarPorNombre(nombre.trim());
+        }
+        return List.of();
     }
 
     public void eliminarProducto(int id) {
