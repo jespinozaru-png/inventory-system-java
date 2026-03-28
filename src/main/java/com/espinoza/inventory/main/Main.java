@@ -7,6 +7,7 @@ package com.espinoza.inventory.main;
 import com.espinoza.inventory.exception.ProductoNoEncontradoException;
 import com.espinoza.inventory.model.Categoria;
 import com.espinoza.inventory.model.Producto;
+import com.espinoza.inventory.repository.ProductoRepositoryJDBC;
 import com.espinoza.inventory.repository.ProductoRepositoryMemoria;
 import com.espinoza.inventory.service.ProductoService;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.Scanner;
  */
 public class Main {
 
-    private static final ProductoService servicio = new ProductoService(new ProductoRepositoryMemoria());
+    private static final ProductoService servicio = new ProductoService(new ProductoRepositoryJDBC());
     private static final Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
