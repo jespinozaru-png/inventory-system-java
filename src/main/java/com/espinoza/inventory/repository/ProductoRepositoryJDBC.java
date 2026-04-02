@@ -30,7 +30,7 @@ public class ProductoRepositoryJDBC implements Repositorio<Producto, Integer> {
 
     @Override
     public void guardar(Producto producto) {
-        String sql = "INSERT INTO productos (idProducto, nombre, precio, cantidad, categoria) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO productos (idProducto, nombre, precio, cantidad, categoria_id) VALUES (?,?,?,?,?)";
         try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
             stmt.setInt(1, producto.getId());
             stmt.setString(2, producto.getNombre());
@@ -67,11 +67,11 @@ public class ProductoRepositoryJDBC implements Repositorio<Producto, Integer> {
 
     @Override
     public List<Producto> buscarTodos() {
-        String sql = "SELECT p.idProducto, p.nombre, p.precio, p.cantidad"
-                + "c.idCategoria AS cat_id, c.nombre AS cat_nombre, c.descripcion AS cat_des"
-                + "FROM productos p"
-                + "INNER JOIN categorias c ON p.categoria_id=c.idCategoria "
-                + "ORDER BY p.nombre ASC";
+        String sql = " SELECT p.idProducto, p.nombre, p.precio, p.cantidad, "
+                + " c.idCategoria AS cat_id, c.nombre AS cat_nombre, c.descripcion AS cat_des "
+                + " FROM productos p "
+                + " INNER JOIN categorias c ON p.categoria_id=c.idCategoria "
+                + " ORDER BY p.nombre ASC ";
         List<Producto> productos = new ArrayList<>();
         try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
@@ -128,11 +128,11 @@ public class ProductoRepositoryJDBC implements Repositorio<Producto, Integer> {
     }
 
     public List<Producto> buscarPorNombre(String nombre) {
-        String sql = "SELECT p.idProducto, p.nombre, p.precio, p.cantidad"
+        String sql = "SELECT p.idProducto, p.nombre, p.precio, p.cantidad, "
                 + "c.idCategoria AS cat_id, c.nombre AS cat_nombre, c.descripcion AS cat_des"
-                + "FROM productos p"
-                + "INNER JOIN categorias on p.categoria_id=c.idCategoria"
-                + "WHERE p.nombre LIKE ?";
+                + " FROM productos p "
+                + " INNER JOIN categorias c on p.categoria_id=c.idCategoria "
+                + " WHERE p.nombre LIKE ? ";
         List<Producto> productos = new ArrayList<>();
         try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
             stmt.setString(1, "%" + nombre + "%");

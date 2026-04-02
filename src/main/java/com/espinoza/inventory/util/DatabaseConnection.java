@@ -25,7 +25,7 @@ public class DatabaseConnection {
             Properties props = cargarPropiedades();
             String url = props.getProperty("db.url");
             String usuario = props.getProperty("db.username");
-            String password = props.getProperty("password");
+            String password = props.getProperty("db.password");
             this.conexion = DriverManager.getConnection(url, usuario, password);
             System.out.println("Conexion a base de datos establecida...");
         } catch (SQLException ex) {

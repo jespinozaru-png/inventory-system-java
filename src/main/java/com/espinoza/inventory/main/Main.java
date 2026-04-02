@@ -10,6 +10,7 @@ import com.espinoza.inventory.model.Producto;
 import com.espinoza.inventory.repository.ProductoRepositoryJDBC;
 import com.espinoza.inventory.repository.ProductoRepositoryMemoria;
 import com.espinoza.inventory.service.ProductoService;
+import com.espinoza.inventory.util.CsvUtil;
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,7 +24,7 @@ public class Main {
     private static final Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        cargarDatosIniciales();
+       // cargarDatosIniciales();
 
         boolean ejecutando = true;
         while (ejecutando) {
@@ -40,6 +41,10 @@ public class Main {
                     agregarProducto();
                 case 4 ->
                     eliminarProducto();
+                case 5 ->
+                    exportarCsv();
+                case 6 ->
+                    importarCsv();
                 case 0 -> {
                     System.out.println("Saliendo del sistema...");
                     ejecutando = false;
@@ -57,6 +62,8 @@ public class Main {
         System.out.println("2. Buscar producto por nombre");
         System.out.println("3. Agregar producto");
         System.out.println("4. Eliminar producto");
+        System.out.println("5. Exportar inventario a CSV");
+        System.out.println("6. Importar productos desde CSV");
         System.out.println("0. Salir");
         System.out.print("Selecciona una opción: ");
     }
@@ -121,13 +128,38 @@ public class Main {
             System.out.println("Error: " + e.getMessage());
         }
     }
-    
-        private static void cargarDatosIniciales() {
+
+    private static void cargarDatosIniciales() {
         Categoria electronica = new Categoria(1, "Electrónica", "Dispositivos electrónicos");
         Categoria herramientas = new Categoria(2, "Herramientas", "Herramientas manuales");
 
         servicio.agregarProducto(new Producto(1, "Laptop Dell", 2599.99, 10, electronica));
         servicio.agregarProducto(new Producto(2, "Mouse Logitech", 89.90, 45, electronica));
         servicio.agregarProducto(new Producto(3, "Taladro Bosch", 349.00, 15, herramientas));
+    }
+
+    private static void exportarCsv() {
+        List<Producto> productos = servicio.listarProductos();
+        if (productos.isEmpty()) {
+            System.out.println("No hay productos para exportar.");
+            return;
+        }
+
+        String ruta = "inventario_export.csv";
+        CsvUtil.exportarProductos(productos, ruta);
+        System.out.println("Archivo guardado en: " + ruta);
+    }
+
+    private static void importarCsv() {
+        System.out.println("Ingresa la ruta del archivo: ");
+        String ruta = sc.nextLine().trim();
+
+        try {
+            List<Producto> importados = CsvUtil.importarProductos(ruta);
+            importados.forEach(servicio::agregarProducto);
+        } catch (RuntimeException e) {
+            System.out.println("Error al importar: " + e.getMessage());
+
+        }
     }
 }
