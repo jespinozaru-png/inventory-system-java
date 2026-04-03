@@ -10,49 +10,42 @@ package com.espinoza.inventory.model;
  */
 public class Categoria {
     private int idCategoria;
-    private String nombre;
-    private String descripcion;
+    private TipoCategoria tipo;
 
     public Categoria() {
     }
 
-    public Categoria(int idCategoria, String nombre, String descripcion) {
-        if (nombre==null || nombre.trim().isEmpty()) {
-            throw new IllegalArgumentException("El nombre de la categoría no puede estar vacío");
+    public Categoria(int idCategoria, TipoCategoria tipo) {
+        if (tipo==null) {
+            throw new IllegalArgumentException("El tipo de categoría no puede ser null");
         }
         this.idCategoria = idCategoria;
-        this.nombre = nombre.trim();
-        this.descripcion = descripcion != null ? descripcion.trim() : "";
+        this.tipo=tipo;
+    }
+    
+    public Categoria(int idCategoria, String nombreTipo, String descripcion){
+        this.idCategoria = idCategoria;
+        this.tipo = TipoCategoria.buscarPorNombre(nombreTipo).orElse(TipoCategoria.OTROS);
     }
 
     public int getIdCategoria() {
         return idCategoria;
     }
-
-
-    public String getNombre() {
-        return nombre;
+    
+    public TipoCategoria getTipo(){
+        return tipo;
     }
-
-    public void setNombre(String nombre) {
-        if (nombre == null || nombre.trim().isEmpty()) {
-            throw new IllegalArgumentException("El nombre de la categoría no puede estar vacío");
-        }
-        this.nombre = nombre.trim();
+    
+    public String getNombre(){
+        return tipo.getNombre();
     }
 
     public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion != null ? descripcion.trim() : " " ;
+        return tipo.getDescripcion();
     }
 
     @Override
     public String toString() {
-        return "Categoria{" + "idCategoria=" + idCategoria + ", nombre=" + nombre + ", descripcion=" + descripcion + '}';
+        return "Categoria{" + "idCategoria=" + idCategoria + ", tipo=" + tipo.getNombre() +'}';
     }
-    
-    
 }
