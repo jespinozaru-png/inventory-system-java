@@ -11,6 +11,8 @@ import com.espinoza.inventory.repository.ProductoRepositoryJDBC;
 import com.espinoza.inventory.repository.ProductoRepositoryMemoria;
 import com.espinoza.inventory.service.ProductoService;
 import com.espinoza.inventory.util.CsvUtil;
+import com.espinoza.inventory.util.Stack;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,9 +24,10 @@ public class Main {
 
     private static final ProductoService servicio = new ProductoService(new ProductoRepositoryJDBC());
     private static final Scanner sc = new Scanner(System.in);
-
+    private static final Stack<String> historialOperaciones = new Stack<>();
+    
     public static void main(String[] args) {
-       // cargarDatosIniciales();
+        // cargarDatosIniciales();
 
         boolean ejecutando = true;
         while (ejecutando) {
@@ -45,6 +48,8 @@ public class Main {
                     exportarCsv();
                 case 6 ->
                     importarCsv();
+                case 7 ->
+                    verHistorial();
                 case 0 -> {
                     System.out.println("Saliendo del sistema...");
                     ejecutando = false;
@@ -64,6 +69,7 @@ public class Main {
         System.out.println("4. Eliminar producto");
         System.out.println("5. Exportar inventario a CSV");
         System.out.println("6. Importar productos desde CSV");
+        System.out.println("7. Ver historial");
         System.out.println("0. Salir");
         System.out.print("Selecciona una opción: ");
     }
@@ -115,6 +121,7 @@ public class Main {
         Producto producto = new Producto(id, nombre, precio, cantidad, categoria);
         servicio.agregarProducto(producto);
         System.out.println("Producto agregado correctamente.");
+        historialOperaciones.push("AGREGADO: " + nombre);
     }
 
     private static void eliminarProducto() {
@@ -124,6 +131,7 @@ public class Main {
         try {
             servicio.eliminarProducto(id);
             System.out.println("Producto eliminado correctamente.");
+            historialOperaciones.push("ELIMINADO: producto id=" + id);
         } catch (ProductoNoEncontradoException e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -162,4 +170,30 @@ public class Main {
 
         }
     }
+    
+    private static void verHistorial(){
+        if (historialOperaciones.estaVacio()) {
+            System.out.println("No hay operaciones registrada");
+            return;
+        }
+        
+        System.out.println("\n--- ÚLTIMAS OPERACIONES ---");
+        Stack<String> temporal = new Stack<>();
+        List<String> operaciones = new ArrayList<>();
+        while(!historialOperaciones.estaVacio()){
+            String op = historialOperaciones.pop();
+            operaciones.add(op);
+            temporal.push(op);
+        }
+        
+        while(!temporal.estaVacio()){
+            historialOperaciones.push(temporal.pop());
+        }
+        
+        int limite = Math.min(5, operaciones.size());
+        for (int i = 0; i < limite; i++) {
+            System.out.println(operaciones.get(i));
+        }
+        
+    } 
 }
