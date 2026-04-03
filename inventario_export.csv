@@ -1,0 +1,13 @@
+id, nombre, precio, categoria_id, categoria_nombre 
+10,Cable HDMI 2m,35.0,75,1,Electrónica
+8,Desinfectante multiusos 1L,12.0,150,4,Limpieza
+5,Destornillador set 12 piezas,45.0,60,2,Herramientas
+9,Escoba de cerda,22.0,40,4,Limpieza
+7,Grapadora metálica,25.0,35,3,Oficina
+1,Laptop Dell Inspiron 15,2599.99,10,1,Electrónica
+2,Mouse inalámbrico Logitech,89.9,45,1,Electrónica
+20,nuevo,8.0,15,1,Electrónica
+21,nuevo 2,5.0,80,1,Electrónica
+6,Resma de papel A4,18.5,200,3,Oficina
+4,Taladro Bosch 500W,349.0,15,2,Herramientas
+3,Teclado mecánico,199.5,20,1,Electrónica
