@@ -50,6 +50,8 @@ public class Main {
                     importarCsv();
                 case 7 ->
                     verHistorial();
+                case 8 ->
+                    buscarProductoPorId();
                 case 0 -> {
                     System.out.println("Saliendo del sistema...");
                     ejecutando = false;
@@ -70,6 +72,7 @@ public class Main {
         System.out.println("5. Exportar inventario a CSV");
         System.out.println("6. Importar productos desde CSV");
         System.out.println("7. Ver historial");
+        System.out.println("8. Buscar por ID");
         System.out.println("0. Salir");
         System.out.print("Selecciona una opción: ");
     }
@@ -196,4 +199,21 @@ public class Main {
         }
         
     } 
+    
+    private static void buscarProductoPorId(){
+        System.out.println("Ingresa el ID del producto: ");
+        
+        try{
+            int id = Integer.parseInt(sc.nextLine().trim());
+            Producto producto = servicio.buscarProductoPorId(id);
+            System.out.println("Producto encontrado: " + producto);
+            
+        }catch(ProductoNoEncontradoException e){
+                    System.out.println("No se encontró ningún producto con ese ID.");
+
+        }catch(NumberFormatException e){
+                    System.out.println("El ID debe ser un número entero.");
+
+        }
+    }
 }

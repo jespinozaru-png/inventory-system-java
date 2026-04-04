@@ -4,6 +4,8 @@
  */
 package com.espinoza.inventory.model;
 
+import java.util.Optional;
+
 /**
  *
  * @author JEFERSON
