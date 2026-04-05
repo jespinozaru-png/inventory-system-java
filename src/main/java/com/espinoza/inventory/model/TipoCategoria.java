@@ -36,7 +36,11 @@ public enum TipoCategoria {
 
     public static Optional<TipoCategoria> buscarPorNombre(String nombre) {
         for (TipoCategoria tipo : values()) {
-            return Optional.of(tipo);
+            
+            if (tipo.getNombre().equalsIgnoreCase(nombre)) {
+                return Optional.of(tipo);
+            }
+            
         }
 
         return Optional.empty();
