@@ -1,80 +1,61 @@
-\# Inventory System Java
+# Inventory System Java
 
+Sistema de gestión de inventario desarrollado en Java como proyecto 
+de aprendizaje progresivo. Evoluciona de CLI con JDBC hasta API REST 
+con Spring Boot a lo largo de 3 meses.
 
+## Tecnologías
 
-Sistema de gestión de inventario desarrollado en Java como proyecto de 
+- Java 17
+- Maven 3.x
+- MySQL 8.x
+- JUnit 5.10
+- JDBC (sin ORM)
 
-aprendizaje progresivo. Evoluciona de CLI con datos en memoria 
+## Estado actual — Mes 1 completado
 
-hasta API REST con Spring Boot a lo largo de 3 meses.
+Sistema CLI funcional conectado a MySQL con:
+- CRUD completo de productos persistido en base de datos
+- Gestión de categorías con tipos controlados por Enum
+- Exportación e importación de datos en formato CSV
+- Historial de operaciones con Stack implementado desde cero
+- 15 tests unitarios pasando sobre la capa de servicio
 
-
-
-\## Tecnologías
-
-
-
-\- Java 17
-
-\- Maven 3.x
-
-\- MySQL 8.x
-
-\- JUnit 5.10
-
-
-
-\## Estado actual
-
-
-
-Semana 1 — Sistema CLI con datos en memoria. 
-
-Estructura de paquetes y modelo de dominio establecidos.
-
-
-
-\## Estructura del proyecto
-
-```
+## Estructura del proyecto
 
 src/main/java/com/tuapellido/inventory/
+├── model/       → Producto, Categoria, TipoCategoria (Enum)
+├── service/     → ProductoService, CategoriaService
+├── repository/  → Repositorio (interfaz), implementaciones JDBC y Memoria
+├── exception/   → ProductoNoEncontradoException, DatoInvalidoException
+├── util/        → DatabaseConnection, CsvUtil, Stack, Queue, AlgoritmosEjercicio
+└── main/        → Main (menú CLI con 9 opciones)
+sql/
+└── schema.sql   → Script de creación de base de datos y datos de prueba
 
-├── model/       → Clases del dominio (Producto, Categoria)
+## Configuración y ejecución
 
-├── service/     → Lógica de negocio (ProductoService)
+1. Clona el repositorio
+2. Copia `src/main/resources/config.properties.example` 
+   como `src/main/resources/config.properties`
+3. Configura tus credenciales de MySQL en config.properties
+4. Ejecuta el script `sql/schema.sql` en MySQL Workbench
+5. Ejecuta `Main.java` desde NetBeans
 
-├── repository/  → Interfaces y repositorio en memoria
+## Ejecutar los tests
 
-├── exception/   → Excepciones personalizadas del dominio
+Clic derecho en el proyecto → Test en NetBeans,
+o desde terminal: `mvn test`
 
-├── util/        → Algoritmos y utilidades
+## Opciones del menú
 
-└── main/        → Punto de entrada con menú CLI
-
-```
-
-
-
-\## Cómo ejecutarlo
-
-
-
-1\. Clona el repositorio
-
-2\. Abre con NetBeans o cualquier IDE con soporte Maven
-
-3\. Ejecuta `Main.java`
-
-4\. Interactúa con el menú en consola
-
-
-
-\## Base de datos
-
-
-
-MySQL con base de datos `inventario\_db`. 
-
-Script de creación en `/sql/schema.sql`.
+1. Listar todos los productos
+2. Buscar producto por nombre
+3. Agregar producto
+4. Eliminar producto
+5. Exportar inventario a CSV
+6. Importar productos desde CSV
+7. Ver últimas 5 operaciones
+8. Buscar producto por ID
+9. Listar categorías disponibles
 
