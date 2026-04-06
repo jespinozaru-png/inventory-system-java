@@ -9,7 +9,7 @@ package com.espinoza.inventory.util;
  * @author JEFERSON
  */
 public class Stack<T> {
-
+    
     private Object[] elementos;
     private int tope;
     private static final int CAPACIDAD_INICIAL = 10;

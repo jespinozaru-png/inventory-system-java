@@ -169,6 +169,62 @@ public class ProductoServiceTest {
             () -> servicio.buscarProductoPorNombre("")
         );
     }
+    
+    @Test
+@DisplayName("Debe actualizar un producto existente correctamente")
+void debeActualizarProductoExistente() {
+    // Arrange
+    Producto original = new Producto(1, "Laptop Dell", 2599.99, 10, electronica);
+    servicio.agregarProducto(original);
 
+    Producto actualizado = new Producto(1, "Laptop Dell Pro", 2999.99, 8, electronica);
 
+    // Act
+    servicio.actualizarProducto(actualizado);
+
+    // Assert
+    Producto recuperado = servicio.buscarProductoPorId(1);
+    assertEquals("Laptop Dell Pro", recuperado.getNombre());
+    assertEquals(2999.99, recuperado.getPrecio());
+    assertEquals(8, recuperado.getCantidad());
+}
+
+@Test
+@DisplayName("Debe lanzar excepción al actualizar producto que no existe")
+void debeLanzarExcepcionAlActualizarProductoInexistente() {
+    Producto inexistente = new Producto(999, "Fantasma", 100.0, 1, electronica);
+    assertThrows(
+        ProductoNoEncontradoException.class,
+        () -> servicio.actualizarProducto(inexistente)
+    );
+}
+
+@Test
+@DisplayName("Debe lanzar excepción al crear producto con nombre vacío")
+void debeLanzarExcepcionConNombreVacio() {
+    assertThrows(
+        DatoInvalidoException.class,
+        () -> new Producto(1, "", 100.0, 5, electronica)
+    );
+}
+
+@Test
+@DisplayName("Debe lanzar excepción al crear producto con cantidad negativa")
+void debeLanzarExcepcionConCantidadNegativa() {
+    assertThrows(
+        DatoInvalidoException.class,
+        () -> new Producto(1, "Producto", 100.0, -1, electronica)
+    );
+}
+
+@Test
+@DisplayName("La búsqueda por nombre debe ser case-insensitive")
+void busquedaPorNombreDebSerCaseInsensitive() {
+    servicio.agregarProducto(new Producto(1, "Laptop Dell", 2599.99, 10, electronica));
+
+    List<Producto> resultados = servicio.buscarProductoPorNombre("laptop");
+
+    assertEquals(1, resultados.size());
+    assertEquals("Laptop Dell", resultados.get(0).getNombre());
+}
 }
