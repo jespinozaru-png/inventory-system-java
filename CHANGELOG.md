@@ -1,74 +1,74 @@
-\# CHANGELOG
+# CHANGELOG
 
 
 
-\## Mes 1 — Sistema CLI con JDBC
+## Mes 1 — Sistema CLI con JDBC
 
 
 
-\### Semana 4
+### Semana 4
 
-\- Agregado TipoCategoria como Enum para control de valores de categoría
+- Agregado TipoCategoria como Enum para control de valores de categoría
 
-\- Categoria actualizada para usar TipoCategoria internamente
+- Categoria actualizada para usar TipoCategoria internamente
 
-\- CategoriaRepository y CategoriaService implementados
+- CategoriaRepository y CategoriaService implementados
 
-\- Optional aplicado consistentemente en toda la base de código
+- Optional aplicado consistentemente en toda la base de código
 
-\- Opción de buscar por ID y listar categorías agregadas al menú
+- Opción de buscar por ID y listar categorías agregadas al menú
 
-\- 15 tests unitarios pasando sobre ProductoService
+- 15 tests unitarios pasando sobre ProductoService
 
-\- Auditoría de código: refactorizadas 3 clases con problemas de responsabilidad
-
-
-
-\### Semana 3
-
-\- ProductoRepositoryJDBC implementado con PreparedStatement
-
-\- ProductoService refactorizado para depender de interfaz Repositorio
-
-\- Credenciales protegidas mediante config.properties en .gitignore
-
-\- DatabaseConnection con patrón Singleton
-
-\- Módulo CSV con exportación e importación funcionales
-
-\- Stack y Queue genéricos implementados desde cero
-
-\- Historial de operaciones en menú usando Stack
+- Auditoría de código: refactorizadas 3 clases con problemas de responsabilidad
 
 
 
-\### Semana 2
+### Semana 3
 
-\- Clase Inventario con HashMap y ArrayList para acceso dual eficiente
+- ProductoRepositoryJDBC implementado con PreparedStatement
 
-\- DatoInvalidoException agregada al dominio
+- ProductoService refactorizado para depender de interfaz Repositorio
 
-\- Producto refactorizado para usar excepciones del dominio
+- Credenciales protegidas mediante config.properties en .gitignore
 
-\- 10 tests unitarios con JUnit 5 sobre ProductoService
+- DatabaseConnection con patrón Singleton
 
-\- BubbleSort y SelectionSort implementados en AlgoritmosEjercicio
+- Módulo CSV con exportación e importación funcionales
+
+- Stack y Queue genéricos implementados desde cero
+
+- Historial de operaciones en menú usando Stack
 
 
 
-\### Semana 1
+### Semana 2
 
-\- Estructura Maven del proyecto establecida
+- Clase Inventario con HashMap y ArrayList para acceso dual eficiente
 
-\- Modelo de dominio: Producto, Categoria con validaciones
+- DatoInvalidoException agregada al dominio
 
-\- Interfaz Repositorio con genéricos
+- Producto refactorizado para usar excepciones del dominio
 
-\- ProductoRepositoryMemoria con ArrayList
+- 10 tests unitarios con JUnit 5 sobre ProductoService
 
-\- ProductoService desacoplado del repositorio
+- BubbleSort y SelectionSort implementados en AlgoritmosEjercicio
 
-\- Menú CLI básico funcional
+
+
+### Semana 1
+
+- Estructura Maven del proyecto establecida
+
+- Modelo de dominio: Producto, Categoria con validaciones
+
+- Interfaz Repositorio con genéricos
+
+- ProductoRepositoryMemoria con ArrayList
+
+- ProductoService desacoplado del repositorio
+
+- Menú CLI básico funcional
 
 \- Base de datos inventario\_db con tablas productos y categorias
 
